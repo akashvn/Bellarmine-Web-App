@@ -1,0 +1,1 @@
+My first project is a list a to-do list application that can keep track of tasks. Data will be stored in a SQL database and the coding will be in PHP, SQL, Javascript with some CSS and HTML.
