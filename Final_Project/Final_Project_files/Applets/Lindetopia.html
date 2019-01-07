@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    
+        body, html {
+            height: 100%;
+            background-color: aquamarine;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            
+        }
+        
+        
+        td{
+            padding: 8px;
+        }
+        tr:hover {
+            background-color:deepskyblue;
+        }
+        fieldset {
+            padding: 10px;
+        }
+        
+        #test {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 50px;
+
+            width: 100px;
+
+            font: bold 15px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+        .error	
+        {
+            padding: 3px;
+            margin: 3px;
+            background-color: antiquewhite;
+            border: 2px solid #d16;
+        }
+
+    
+    
+    
+    </style>
+    
+<title>Lindetopia</title>
+    
+</head>
+<body>
+    
+    <h2>We have partnered with Lindy Games to make Akash's Applets possible.</h2>
+    
+    <p>You will need a Lindetopia account to continue to this program. If you encounter any problems with this site, please contact Alex at A.HardingBradley19@bcp.org.</p>
+    
+    
+    <p>You should be redirected automatically. If you encounter any problems please click this button.</p>
+    
+    
+    <button class="#test" onclick="reLocate()">Redirect</button>
+
+    <script>
+        function reLocate() {
+            location.replace("http://times.bcp.org/webs/apps18/aleks/loginGame.php")
+        }
+    </script>
+    
+    <script language="javascript" type="text/javascript">
+         window.setTimeout('window.open("http://times.bcp.org/webs/apps18/aleks/loginGame.php")',6000);
+    </script>
+    
+</body>
+</html>
+
+

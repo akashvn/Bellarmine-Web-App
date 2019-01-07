@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    
+        body, html {
+            height: 100%;
+            background-color: aquamarine;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            
+        }
+        
+        
+        td{
+            padding: 8px;
+        }
+        tr:hover {
+            background-color:deepskyblue;
+        }
+        fieldset {
+            padding: 10px;
+        }
+        #mode{
+            position: static;
+        }
+        
+        .test2 {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 19px;
+
+            width: 50px;
+
+            font: bold 10px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        .test {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 50px;
+
+            width: 100px;
+
+            font: bold 15px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+        .error	
+        {
+            padding: 3px;
+            margin: 3px;
+            background-color: antiquewhite;
+            border: 2px solid #d16;
+        }
+
+    
+    
+    
+    </style>
+    
+        <title>Number Guess</title>
+
+
+    
+</head>
+<body onload="eval();">
+    
+    
+    
+    
+<h1><center>Number Guess</center></h1>
+    
+    
+    <div id="mode">
+    <h3>Choose your difficulty</h3>
+        
+        <button class="test" id="easy" onclick="program(1)">Easy</button>
+        <button class="test" id="medium" onclick="program(2)">Medium</button>
+        <button class="test" id="hard" onclick="program(3)">Hard</button>
+
+    
+    
+    </div>
+    
+    
+    
+    <p id="message"></p>
+    
+    <p id="guess"></p>
+    <p id="input"></p>
+        <p id="input2"></p>
+
+    <p id="actual"></p>
+    
+    <script>
+        
+        
+        var actual;
+        var guesses;
+        var range;
+        var guess;
+        function program(dif)
+        {
+            var difficulty=dif;  
+
+
+
+            if(difficulty == 1)
+            {
+                guesses = 3;
+                range = 10;
+
+            }
+            else if(difficulty == 2)
+            {
+                guesses = 5;
+                range = 100;
+            }
+            else if(difficulty == 3)
+            {
+                guesses = 7;
+                range = 1000;
+            }
+
+
+
+            document.getElementById("mode").style.visibility = "hidden";
+            document.getElementById("mode").style.position = "absolute";
+            document.getElementById("mode").style.top = "-9999px";
+            document.getElementById("actual").innerHTML = "";
+
+
+
+
+
+
+            makeGame(guesses, range);
+
+
+
+        }
+        function vis()
+        {
+            document.getElementById("mode").style.visibility = "visible";
+            document.getElementById("mode").style.position = "static";
+            document.getElementById("mode").style.top = "0px";
+        }
+
+        function makeGame(guesses, range)
+        {
+            var guesses = guesses;
+            var range = range;
+            actual = Math.floor( (Math.random())*(range+1) );
+
+            document.getElementById("message").innerHTML = "You have "+ guesses + " chances to guess a number between 0 and " + range;
+            document.getElementById("input").innerHTML = "Pick a number between 0 and "+range+ " and click enter to submit:<input id=\"guesslol\" type=\"number\" name=\"quantity\" min=\"0\" max=\""+range+"\"><span>&nbsp; &nbsp; </span><button class=\"test2\" onclick=\"return guess()\">Submit</button>";
+
+
+        }
+        function guess()
+        {
+            guess = document.getElementById("guesslol").value;
+            guesses--;
+            if(guess==actual)
+            {
+                runGame("good");
+
+            }
+            else if(guess<actual)
+            {
+                runGame("lower");
+ 
+            }
+            else if(guess>actual)
+            {
+                runGame("higher");
+            }
+
+
+        }
+        
+        function runGame(val)
+        {
+
+            if(val=="good")
+            {
+                done("Won!");
+            }
+            else
+            {
+                if(guesses ==0)
+                {
+                    done("Lost.")
+                    
+                }
+                else{
+                    document.getElementById("message").innerHTML = "You have "+ guesses + " chances to guess a number between 0 and " + range;
+                    document.getElementById("input").innerHTML = "Pick another number between 0 and "+range+ " and click enter to submit:<input id=\"guesslol2\" type=\"number\" name=\"quantity\" min=\"0\" max=\""+range+"\"><span>&nbsp; &nbsp; </span><button class=\"test2\" onclick=\"return guess2()\">Submit</button>";
+
+                    document.getElementById("guess").innerHTML = "You guessed " +guess+" but your value was " + val +" than the actual value. Try Again";
+                }
+                                
+            }
+            
+            
+            
+            
+
+        }
+        
+        function guess2()
+        {
+            guess = document.getElementById("guesslol2").value;
+            guesses--;
+            if(guess==actual)
+            {
+                runGame("good");
+
+            }
+            else if(guess<actual)
+            {
+                runGame("lower");
+ 
+            }
+            else if(guess>actual)
+            {
+                runGame("higher");
+            }
+        }
+        
+        function done(result)
+        {
+                document.getElementById("message").innerHTML = "";
+                document.getElementById("input").innerHTML = "";
+                
+                document.getElementById("guess").innerHTML = "";
+                document.getElementById("actual").innerHTML = "You " + result +" The correct value was " + actual;
+                
+                setTimeout(function() {
+                    location.reload();
+                }, (3 * 1000));                
+            
+                
+            
+            
+        }
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+    
+    
+</body>
+</html>

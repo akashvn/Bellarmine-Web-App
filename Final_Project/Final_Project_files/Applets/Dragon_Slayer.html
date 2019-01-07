@@ -1,0 +1,409 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dragon slayer</title>
+<style>
+p {
+	font-family:"Comic Sans MS", cursive;
+	color:#CCC;
+	padding: 0px;
+	margin: 0px;
+}
+
+#gameboard {
+	background-color:black;
+	width:500px;
+	border-style:groove;
+	border-color:red;
+	border-width:8px;
+}
+
+#title, #dragon, #story, #player , #inventory, #choices {
+	border-bottom:groove;
+	border-color:red;
+	border-width:8px;
+	
+	
+}
+
+#title  p {
+	text-align: center;
+	font-size:36px;
+}
+
+#dragon p  {
+	text-align:center;
+}
+#player p  {
+	text-align:center;
+}
+
+#story p {
+color:#000;
+}
+
+
+
+#story {
+	height: 220px;
+	background-image:url(https://i.imgur.com/Gnan5Tw.jpg);
+}
+#inventory {
+
+	background-image:url(https://i.imgur.com/eFotIkc.jpg);
+}
+</style>
+
+<script type="text/javascript">
+//Global variables
+	//Health potion
+	var player_HP = 100;
+	var player_Max_HP = 100;
+	var dragon_HP = 200;
+	var dragon_Max_HP = 200;
+	
+	//Potions
+	var healthPotion = 3;
+	var healthPotionMax = 3;
+	var healthPotionValue = 25;
+	var healthPotionButton = "<input type= 'button' value='Use' onClick='usePotion(\"health\")'>"
+	
+	var beserkPotion = 3;
+	var beserkPotionMax = 3;
+	var beserkPotionValue = 25;
+	var beserkPotionButton = "<input type= 'button' value='Use' onClick='usePotion(\"beserk\")'>"
+	
+	//Placeholders
+	var dragonAttack;
+	var playerWeapon = "sword"; //starting weapon
+	var playerAttack;
+	var storyText;
+	var stars;
+	var i;//counter
+	var stars2;
+	var i2;//counter
+	var endText;
+	var b;
+	// every game the dragon will decide whether to breathe fire every 3-10 turns
+	var randNum = Math.floor(Math.random() * 8) + 3;
+	var counter = 3; //This is the defualt choice
+	
+	
+	
+	
+	//FUNCTION
+	//function weapon () equips the chosen weapon
+
+	function weapon(w) {
+		switch(w) {
+			case "axe":
+				document.getElementById("storyText").innerHTML = "You equipped the battle axe."//5-25 damage
+				
+				playerWeapon = "axe";
+				break;
+			case "sword":
+			document.getElementById("storyText").innerHTML = "You equipped the long sword."//13-17 damage
+	
+			playerWeapon = "sword";
+			break;
+			case "spear":
+			document.getElementById("storyText").innerHTML = "You pulled out the spear."//10-20 damage
+			
+			playerWeapon = "spear";
+			break;
+			case "bow":
+			document.getElementById("storyText").innerHTML = "You pulled out your bow."//5-9 damage chance of 80-100 damage
+			
+			playerWeapon = "bow";
+			break;
+		default:
+			break;
+			
+			
+		}
+	}
+	
+	//function  use potion uses the potion
+	function usePotion(potion) {
+			switch(potion) {
+			case "health":
+			
+			player_HP += healthPotionValue;
+			//Check if health over max
+				if( player_HP > player_Max_HP) {
+					// set player health Max
+					player_HP = player_Max_HP;
+				}
+				updateHealthBar("player");
+				
+				//decrease potions
+				healthPotion--;
+				//update screen
+				//calculate how many stars to add
+				i = healthPotion;
+				stars = "";
+				while( i > 0) {
+					stars += "*";
+					--i;
+				}
+				//check if potions are left...
+				if( healthPotion < 1) {
+					healthPotionButton = "";
+					
+				}
+				document.getElementById("healthPotion").innerHTML = "Health Potions: " + stars + healthPotionButton;
+				
+				break;
+			case "beserk":
+				beserkPotion--;
+				//update screen
+				//calculate how many stars to add
+				i2 = beserkPotion;
+				stars2 = "";
+				while( i2 > 0) {
+					stars2 += "*";
+					--i2;
+				}
+				//check if potions are left...
+				if( beserkPotion < 1) {
+					beserkPotionButton = "";
+					
+				}
+				document.getElementById("BeserkPotion").innerHTML = "Beserk Potion: " + stars2 + beserkPotionButton;
+				b = 1; 
+				break;
+				break;
+			default:
+				break;
+			}	
+		}
+	
+	//function update health bar updates the Health Bar
+	function updateHealthBar(target) {
+			//Local variables
+			stars = "";
+			
+			switch( target ) {
+			case "player":
+			//calculate how many stars to add
+			i = Math.ceil((player_HP / player_Max_HP) * 5);
+			while( i > 0){
+				stars += "*";
+				--i;
+				}
+                if(player_HP<0)
+                    player_HP=0;
+                if(dragon_HP<0)
+                    dragon_HP=0;
+				document.getElementById("playerHealthBar").innerHTML = player_HP + "/100";
+				break;
+				case "dragon":
+			//calculate how many stars to add
+			i = Math.ceil((dragon_HP / dragon_Max_HP) * 10);
+			while( i > 0){
+				stars += "*";
+				--i;
+				}
+				document.getElementById("dragonHealthBar").innerHTML = dragon_HP + "/100";
+				break;
+			}
+		}
+	//function dragon choice decides how the dragon will atack
+	function dragonChoice() {
+		//Checks how the dragon will attack
+		var choice = counter % randNum;
+		switch(choice){
+		case 0:
+			//Dragon is getting ready to breathe fire
+			dragonAttack = 0;
+			dragonText = "The dragon is taking a deep breath";
+			break;
+			
+		case 1:
+			//Fire breath between 25-35
+			//Photon beam 40-55
+			if(Math.random()<0.7){
+				dragonAttack = (Math.floor(Math.random() * 11) + 25);
+				dragonText = "The dragon breathed fire at you";
+			}
+			else {
+				dragonAttack = (Math.floor(Math.random() * 16) + 40);
+				dragonText = "The dragon used his photon beam";
+			}
+			break;
+		case 2:
+		//Phantom bite 5-7 damage and steals 30 health 
+			dragonAttack = (Math.floor(Math.random() * 2) + 5);
+			dragonText = "The dragon used his phantom bite. Oh no!!!";
+			dragon_HP+=30
+			break;
+		default:
+			//Claw attack between 12-15
+			dragonAttack = (Math.floor(Math.random() * 4) + 10);
+			dragonText = "The dragon swiped at you with his claw";
+			break;	
+			
+			
+			
+		}
+		counter++
+	}
+	
+	//function player choice will calculate how the player will attack
+	function playerChoice() {
+			if( playerWeapon == "axe"){
+				playerAttack = (Math.floor(Math.random() * 21) + 5);//5-25 damage
+				playerText = "You hacked away at the dragon's hide";
+				
+				
+			}
+			else if( playerWeapon == "sword"){
+				playerAttack = (Math.floor(Math.random() * 5) + 13);//13-17 damage
+				playerText = "You stabed at the dragon's face";
+				
+			
+			
+			}
+			else if( playerWeapon == "spear"){
+				
+				playerAttack = (Math.floor(Math.random() * 11) + 10);//10-20 damage
+				playerText = "You plunged your spear into the dragon's side";
+			
+			
+			}
+			
+			else {
+				
+					if(Math.random() <= 0.9) {//5-9 damage chance of 80-100 damage
+						playerAttack = (Math.floor(Math.random() * 6) + 5);
+						playerText = "Your arrow hit the dragon's scales. Not very effective";
+					}
+					else{
+						playerAttack = (Math.floor(Math.random() * 21) + 80);
+						playerText = "Your arrow hit the dragon's head. HEADSHOT!!!!!";
+					}
+				
+			}
+			
+			// playerAttack has been calculated, but...
+			// check if beserk mode active
+			if(b > 0){
+				playerAttack = playerAttack * 2
+				// decrease counter
+				b--
+				
+			}
+			
+			
+			
+		}
+	//Function game () will decide what to do 
+	function game(sel) {
+		switch(sel) {
+		case "attack":
+			//calculate dragon attack
+			dragonChoice();
+			
+			//Calculate players attack
+			playerChoice();
+			
+			//deal the damage
+			player_HP -= dragonAttack
+			dragon_HP -= playerAttack
+			
+			//change screen text
+			storyText = dragonText + " You take " + dragonAttack + " damage!<br><br><br><br><br><br>" + playerText + ". The dragon takes " + playerAttack + " damage!";
+			updateHealthBar("player");
+			updateHealthBar("dragon");
+			document.getElementById("storyText").innerHTML = storyText;
+			break;
+		case "defend":
+			//calculate damage attack
+			
+			dragonChoice();
+					
+			//calculate player's defense
+			//defense absorbs 60-90% of the attack
+			var playerDefense = 1 - (Math.floor( Math.random() * 30 + 60)/100);
+			dragonAttack = Math.floor(dragonAttack * playerDefense);
+			
+			// deal the damage
+			player_HP -= dragonAttack;
+			
+			// change screen text
+			storyText = dragonText + "<br><br><br><br><br><br>You raise your shield to defend. You take " + dragonAttack + " damage!";
+			updateHealthBar("player");
+			document.getElementById("storyText").innerHTML = storyText;
+			break;
+		case "end":
+		//remove buttons and inventory items
+		document.getElementById("choicesButtons").innerHTML = "<input type='button' value='Play again?' onClick='history.go(0)'>";
+		document.getElementById("inventory").innerHTML = "<br><br><br><br><br><br><br><br><br><br><br><br>";
+		//update story text
+		document.getElementById("storyText").innerHTML = endText;
+		break;
+	default:
+		break;
+		}
+		//Check if game is over
+		if( player_HP <= 0 ){
+			endText = "The dragon burnt you to a crisp. Game Over.";
+            player_HP=0;
+			game("end");
+		}
+		if( dragon_HP <= 0 ){
+			endText = "Congratulations. You defeated the dragon.";
+            dragon_HP=0;
+			game("end");
+		}
+	}
+	</script>
+</head>
+
+<body bgcolor="333333">
+<div id="gameboard">
+
+
+	<div id="title">
+    	<p>Dragon Slayer</p>
+    </div>
+    
+    
+    <div id="dragon">
+    	<p>Dragon Health:</p>
+        <p id="dragonHealthBar">200/200</p>
+    
+    </div>
+    
+    <div id="story">
+    	<p id="storyText">A dragon has appeared</p>
+    </div>
+    
+    <div id="player">
+    	<p>Player Health:</p>
+        <p id="playerHealthBar">100/100</p>
+    </div>
+    
+    <div id="inventory">
+    	<p>Inventory</p>
+        <p id="healthPotion">Health Potions: ***<input type="button" value="use" onClick="usePotion('health')"></p><img src="https://i.imgur.com/npPVWRG.png" width="35" height="35">
+        <p id="BeserkPotion">Beserk Potion: ***<input type="button" value="use" onClick="usePotion('beserk')"></p><br><img src="https://i.imgur.com/Ah3oKPW.png" width="35" height="35">
+        <p id="weapon">Weapons<br><input type="button" value="Battle Axe" onClick="weapon('axe')"><img src="https://i.imgur.com/9LOKm0r.png" width="35" height="35">
+        <input type="button" value="Long Sword" onClick="weapon('sword')"><img src="https://i.imgur.com/1ebIA8v.png" width="40" height="40">
+        <input type="button" value="Spear" onClick="weapon('spear')"><img src="https://i.imgur.com/gKVoWJm.png" width="40" height="40">
+        <input type="button" value="Bow" onClick="weapon('bow')"><img src="https://i.imgur.com/GmGvpz8.png" width="35" height="35"></p>
+    </div>
+    
+    
+    <div id="choices">
+    	<p>What would you like to do?</p>
+    	<p id="choicesButtons"><input type="button" value="Attack" onClick="game('attack')"><input type="button" value="Defend" onClick="game('defend')"></p>
+    </div>
+    
+    
+    
+    </div>   
+</body>
+</html>

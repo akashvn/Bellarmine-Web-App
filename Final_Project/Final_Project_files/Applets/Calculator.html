@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    /*Used W3 schools to find and undertand all of the CSS*/
+        body, html {
+                height: 100%;
+                /*background-color:lightsalmon;*/
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+
+
+                margin: 0;
+                padding: 5em 0 2em;
+                text-align: center;
+            
+            
+                background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#000), to(transparent));
+                background-image: -webkit-linear-gradient(lightsalmon, transparent);
+                background-image: -moz-linear-gradient(lightsalmon, transparent);
+                background-image: -o-linear-gradient(lightsalmon, transparent);
+                background-image: linear-gradient(lightsalmon, transparent);
+            
+            
+        }
+        
+        .calculator {
+            font-size: 28px;
+            margin: 0 auto;
+            display:flex;
+            justify-content:space-around;
+            content: " ";
+            display: table;
+            padding: 20px;
+            width: 12em;
+            
+
+
+
+        }
+        
+
+        
+        button {
+            display: inline-block;
+            background-color: #fff;
+
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px -5px;
+            background: rgba(90,200,115, .28);
+            color: #6cacc5;
+            float: left;
+            font: inherit;
+            height: 60 px;
+            overflow-x: auto;
+            width: 2em;
+            height: 2em;
+
+            margin: 0.25em;
+
+
+
+            
+        }
+        
+        
+        button:hover{
+              background-color:azure;
+        }
+        
+        .number
+        {
+            background-color:aquamarine;
+            
+        }
+        .operations
+        {
+            background-color: lightblue;
+
+            
+        }
+        .execute
+        {
+            background-color: mediumpurple;
+            
+        }
+        
+        .calculator{
+            border-width: 3px;
+            border-style: solid;
+
+            
+            
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#000), to(transparent));
+            background-image: -webkit-linear-gradient(lightgoldenrodyellow, transparent);
+            background-image: -moz-linear-gradient(lightgoldenrodyellow, transparent);
+            background-image: -o-linear-gradient(lightgoldenrodyellow, transparent);
+            background-image: linear-gradient(lightgoldenrodyellow, transparent);
+
+        }
+        
+        .execute:hover {
+            cursor: pointer;
+
+        }
+        
+        .viewer {
+            color: lemonchiffon;
+            float: left;
+            line-height: 3em;
+            text-align: right;
+            text-overflow:ellipsis;
+            overflow: hidden;
+            width: 7.2em;
+            height: 2.5em;  
+            border: 1px solid #bbb;
+            color:black;
+        }
+        
+        .clear {
+            background-color: lawngreen;
+        }
+
+        
+    
+    
+    </style>
+    
+            <title>Calculator</title>
+
+    
+</head>
+<body>
+    
+    <h1><center>Calculator</center></h1>
+    
+    <div id="calculator" class="calculator">
+
+        <button id="C" class="clear" onclick="inputs('clear')">C</button>
+
+        <div id="Output" class="viewer"><span id="output"></span></div><br><br>
+
+        <button class="number" id="7" onclick="inputs(7)">7</button>
+        <button class="number" id="8" onclick="inputs(8)">8</button>
+        <button class="number" id="9" onclick="inputs(9)">9</button>
+        <button class="operations" id="add" onclick="inputs('+')">+</button>
+
+        <button class="number" id="4" onclick="inputs(4)">4</button>
+        <button class="number" id="5" onclick="inputs(5)">5</button>
+        <button class="number" id="6" onclick="inputs(6)">6</button>
+        <button class="operations" id="subtract" onclick="inputs('-')">-</button>
+
+        <button class="number" id="1" onclick="inputs(1)">1</button>
+        <button class="number" id="2" onclick="inputs(2)">2</button>
+        <button class="number" id="3" onclick="inputs(3)">3</button>
+        <button class="operations" id="multiply" onclick="inputs('*')">*</button>
+
+        <button class="number" id="0" onclick="inputs(0)">0</button>
+        <button class="number" id="." onclick="inputs(3.141592653589793238)">π</button>
+        <button class="execute" id="execute" onclick="inputs('=')">=</button>
+        <button class="operations" id="divide" onclick="inputs('/')">/</button>
+    </div>
+
+
+    
+    
+    <script>
+        
+        var firstNumber="";
+        var secondNumber="";
+        var operation="";
+        var answer="";
+        function inputs(value)
+        {
+            printl("clear");
+            
+            if (Number.isInteger(value) || value==3.141592653589793238)
+            {
+                if(firstNumber == "")
+                {
+                    firstNumber=value; 
+
+                    printl("firstNumber");
+
+                }
+                else if(secondNumber == "")
+                {
+                    secondNumber=value;
+                    printl("secondNumber");
+                }
+
+            }
+            else
+            {
+                if(value=="+" || value=="-" || value=="*" || value=="/")
+                {
+                    if(firstNumber!="" && secondNumber=="" )
+                    {
+                        operation=value; 
+                        printl("operation");
+                    }
+                    else{
+                        printl("error")
+                    }
+
+
+                }
+                else if(value == "clear")
+                {
+                    clear();
+                }
+                else if(value == '.')
+                {
+                    adddecimal();
+                }
+                else if(value == '=')
+                {
+                    evaluate();
+                }
+                
+            }
+            
+            
+
+        }
+        function clear()
+        {
+            firstNumber= "";
+            secondNumber="";
+            operation="";
+            answer="";
+
+            
+            printl("clear");
+            
+        }
+        function clear2()
+        {
+            firstNumber= "";
+            secondNumber="";
+            operation="";
+            answer="";
+
+                        
+        }
+        
+        function evaluate()
+        {
+            if(operation=="+")
+            {
+                answer= firstNumber+secondNumber;
+            }
+            else if(operation=="-")
+            {
+                answer= firstNumber-secondNumber;
+            }
+            else if(operation=="*")
+            {
+                answer= firstNumber*secondNumber;
+            }
+            else if(operation=="/")
+            {
+                answer= firstNumber/secondNumber;
+            }
+            
+            if(isNaN(answer))
+            {
+                printl("error");
+            }
+            else
+            {
+                printl("answer");
+                clear2()
+            }
+            
+            
+        }
+        
+        
+        function printl(val)
+        {
+            var x="";
+            if(val=="firstNumber")
+            {
+                x=x+firstNumber;
+                document.getElementById("output").innerHTML = x;
+            }
+            else if(val=="operation")
+            {
+                x=x+operation;
+                document.getElementById("output").innerHTML = x;
+            }
+            else if(val=="secondNumber")
+            {
+                x=x+secondNumber;
+                document.getElementById("output").innerHTML = x;
+            }
+            else if(val=="answer")
+            {
+                document.getElementById("output").innerHTML = answer;
+                x="";
+            }
+            else if(val=="clear")
+            {
+                x="";
+                document.getElementById("output").innerHTML = x;
+            }
+            else
+            {
+                x="Error";
+                document.getElementById("output").innerHTML = x;
+
+            }
+            
+            
+        }
+    
+    
+    
+    
+    
+    
+    </script>
+    
+    
+</body>
+</html>

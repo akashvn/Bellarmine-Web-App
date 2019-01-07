@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    
+        body, html {
+            height: 100%;
+            background-color: aquamarine;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            
+        }
+        
+        
+        td{
+            padding: 8px;
+        }
+        tr:hover {
+            background-color:deepskyblue;
+        }
+        fieldset {
+            padding: 10px;
+        }
+        
+        #test {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 50px;
+
+            width: 100px;
+
+            font: bold 15px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+        .error	
+        {
+            padding: 3px;
+            margin: 3px;
+            background-color: antiquewhite;
+            border: 2px solid #d16;
+        }
+
+    
+    
+    
+    </style>
+    
+
+    <title>T-Bay</title>
+
+</head>
+<body>
+    
+    <h2>We have partnered with T-Bay to make Akash's Applets possible.</h2>
+    
+    <p>You will need a T-Bay account to continue to this program. If you encounter any problems with this site, please contact Tanay Menezes at Tanay.Menezes20@bcp.org.</p>
+    
+    
+    <p>You should be redirected automatically. If you encounter any problems please click this button.</p>
+    
+    
+    <button class="#test" onclick="reLocate()">Redirect</button>
+
+    <script>
+        function reLocate() {
+            location.replace("http://times.bcp.org/webs/apps18/tanay/auctionLoginForm.html")
+        }
+    </script>
+    
+    <script language="javascript" type="text/javascript">
+         window.setTimeout('window.open("http://times.bcp.org/webs/apps18/tanay/auctionLoginForm.html")',6000);
+    </script>
+    
+</body>
+</html>

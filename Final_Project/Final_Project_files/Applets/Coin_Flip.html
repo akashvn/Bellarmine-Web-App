@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    
+        body, html {
+            height: 100%;
+            background-color: aquamarine;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            
+        }
+        
+        
+        td{
+            padding: 8px;
+        }
+        tr:hover {
+            background-color:deepskyblue;
+        }
+        fieldset {
+            padding: 10px;
+        }
+        
+        #test {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 50px;
+
+            width: 100px;
+
+            font: bold 15px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+        .error	
+        {
+            padding: 3px;
+            margin: 3px;
+            background-color: antiquewhite;
+            border: 2px solid #d16;
+        }
+
+    
+    
+    
+    </style>
+    
+        <title>Coin Flip</title>
+
+    
+</head>
+<body>
+    
+    
+    
+    
+<h1><center>Coin Flip Simulator</center></h1>
+    
+    <img id="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/US_One_Cent_Obv.png/1200px-US_One_Cent_Obv.png" width="500" height="500">
+    
+    <h3 id="thing"></h3>
+    
+    <button id="test" onclick="flipCoin()">Flip</button>
+    
+    
+    
+    <script>
+        function flipCoin(){
+            
+            
+            document.getElementById("image").src="http://www.stickpng.com/assets/thumbs/5a4613ddd099a2ad03f9c994.png";
+            
+            if(true)
+            {
+                setTimeout(function() {
+                    
+                        var side=Math.floor( ( Math.random()*2 ) );
+                        //var prevside="";
+                        var win="head";
+                        if(side==0){
+                            document.getElementById("image").src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/US_One_Cent_Obv.png/1200px-US_One_Cent_Obv.png";
+                            win="heads"
+
+                        }
+                        else if(side==1){
+                            document.getElementById("image").src="https://upload.wikimedia.org/wikipedia/commons/d/da/US_One_Cent_Rev.png";
+                            win="tails"
+                        }
+
+
+
+                        document.getElementById("thing").innerHTML = "The coin landed on " + win+"!";   
+                    
+                    
+                }, (2 * 1000));     
+            } 
+            
+ 
+        }
+    
+    
+    
+    </script>
+    
+    
+</body>
+</html>

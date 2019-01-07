@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    
+        body, html {
+            height: 100%;
+            background-color: aquamarine;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            
+        }
+        
+        
+        td{
+            padding: 8px;
+        }
+        tr:hover {
+            background-color:deepskyblue;
+        }
+        fieldset {
+            padding: 10px;
+        }
+        
+        #test {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 50px;
+
+            width: 100px;
+
+            font: bold 15px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+        .error	
+        {
+            padding: 3px;
+            margin: 3px;
+            background-color: antiquewhite;
+            border: 2px solid #d16;
+        }
+
+    
+    
+    
+    </style>
+    
+            <title>Base Converter</title>
+
+
+    
+</head>
+<body onload="eval();">
+    
+    
+    
+    
+<h1><center>Base Changer</center></h1>
+    
+    
+    <p>Insert in values and click submit to change the base of the numbers. Numbers that are too large or negative may cause an error. Only Bases 2-32 are supported</p>
+    
+    <!--
+    <form>
+            Number: <input id="Number" type="text" name="Number"><br>
+            Base:   <br><input type="radio" name="base1" value="Binary"> Binary<br>
+                    <input type="radio" name="base1" value="Octal"> Octal<br>
+                    <input type="radio" name="base1" value="Decimal"> Decimal<br>
+                    <input type="radio" name="base1" value="Hex"> Hex<br>   <br>
+
+        
+        
+            Desired Base:  <br><input type="radio" name="base2" value="Binary"> Binary<br>
+                    <input type="radio" name="base2" value="Octal"> Octal<br>
+                    <input type="radio" name="base2" value="Decimal"> Decimal<br> 
+                    <input type="radio" name="base2" value="Hex"> Hex<br>   <br>
+        
+        <button id="test" onclick="eval()">Submit</button>
+    </form>-->
+    
+    <button id="test" type="button" onClick="refreshPage()">Again</button>
+
+    <script>
+    function refreshPage(){
+        window.location.reload();
+    } 
+    </script>
+    <p id="problem"></p>
+    
+    <p id="Answer"></p>
+
+    
+    <script>
+        function eval() {
+
+            
+                
+                var number = prompt("Enter a proper number or hex value. Negative or decimal values are not supported.");
+                var base1 = prompt("Enter the base of the number you just entered. Type in Binary, Octal, Decimal or Hex.");
+                var base2 = prompt("Enter the base of the number you want outputted. Type in Binary, Octal, Decimal or Hex.");
+                
+
+                
+            
+                
+                var base1num = getNum(base1); 
+                var base2num = getNum(base2);
+            
+                number=parseInt(number, base1num);
+
+                if(valid(number, base1, base2))
+                {
+
+                    var Answer = "";
+                    
+                    
+
+                    if (base1num==16) {
+                        Answer= parseInt(number, 10);
+                        Answer= Answer.toString(base2num);
+
+                    } 
+                    else {
+                        Answer= number.toString(base2num);
+                    }
+                }
+                else{
+
+                  document.getElementById("problem").innerHTML="There is an error. Please try again with appropiate values.";
+
+                }
+                
+                
+                    
+                
+                
+                document.getElementById("Answer").innerHTML="The converted value is "+ Answer;
+
+            }
+        
+        /*
+        function getRadio(name)
+        {
+            var radios = document.getElementsByName(name);
+
+            for (var i = 0, length = radios.length; i < length; i++)
+            {
+             if (radios[i].checked)
+             {
+              // do whatever you want with the checked radio
+              return radios[i].value;
+
+              // only one radio can be logically checked, don't check the rest
+              break;
+             }
+            }
+        }*/
+        function valid(number, base1, base2)
+        {
+
+            if(base1!= "Hex")
+            {
+                if(isNaN(number))
+                {
+                    return false;
+                }
+                return true;
+            }
+            else{
+
+                 regexp = /^[0-9a-fA-F]+$/;
+
+                if (regexp.test(number))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+
+            }
+            return false;
+        }
+        function getNum(base)
+        {
+            if(base=="Binary")
+                {
+                    return 2;
+                }
+            else if(base=="Octal")
+                {
+                    return 8;
+                }
+            else if(base=="Decimal")
+                {
+                    return 10;
+                }
+            else if(base=="Hex")
+                {
+                    return 16;
+                }
+        }
+    </script>
+    
+    
+    
+</body>
+</html>
