@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    <style>
+    /*Used W3 schools to find and undertand all of the CSS*/
+        body, html {
+                height: 100%;
+                background-color:aquamarine;
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+            
+        }
+        .test2 {
+            
+            /*
+            Formatting taken from 
+            https://www.jotform.com/help/118-How-to-Customize-the-Submit-Button-with-CSS 
+            */
+
+            background: #422bd8; 
+
+            color: white;
+
+            border-style: outset;
+
+            border-color: #422bd8;
+
+            height: 19px;
+
+            width: 50px;
+
+            font: bold 10px arial, sans-serif;
+
+            text-shadow:none;
+
+        }
+        
+
+        
+    
+    
+    </style>
+    
+        <title>To Do List Login</title>
+
+    
+</head>
+<body>
+    <h1><center>To Do List Login</center></h1>
+    
+    <!--<p>You can use multiple usernames but your to do items will be stored only under one. It is highly reccomended to use the same username but you are not required to.</p>-->
+    
+    <p>Please login. If your name is Mr. Lindemann, your username is "test" and password is "password".</p>
+        <div id="Opening">
+    
+            <form action="logintodo.php" method="get">
+            
+                Username: <input name="Username" type="text" id="input">
+                Password: <input name="Password" type="password" id="input">
+
+                <input class="test2" type="submit" value="Submit">
+            
+            </form>
+    </div>
+    
+    
+    
+    
+</body>
+</html>
